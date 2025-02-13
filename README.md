@@ -1,6 +1,6 @@
 # This README was generated using code
 
-Check the `src/index.ts` file.
+Check the `src/index.ts` file, and the `start` script in the `package.json` file.
 
 ---
 

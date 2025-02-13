@@ -1,5 +1,6 @@
-// created in nodejs v22.13.1
-// working on unix (linux and macos) systems
+// Node.js >= v22.13.1
+// Tested on Linux and macOS. Not tested on Windows.
+
 import fs from 'node:fs'
 import path from 'node:path'
 import { isNonEmptyArray } from 'ramda-adjunct'
@@ -69,7 +70,8 @@ const main = async (): Promise<void> => {
   let lastVerseNumber: number = -1
 
   markdown += '# This README was generated using code\n\n'
-  markdown += 'Check the `src/index.ts` file.\n\n'
+  markdown +=
+    'Check the `src/index.ts` file, and the `start` script in the `package.json` file.\n\n'
 
   for (const ctp of CHAPTERS_TO_PRINT) {
     const { bookUrl, chapterUsfm, separatedLines, notice } = ctp
