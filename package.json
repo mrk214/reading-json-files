@@ -1,5 +1,5 @@
 {
-  "name": "bible-md",
+  "name": "reading-json-files",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "types": "tsc",
