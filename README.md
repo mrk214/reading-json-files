@@ -13,7 +13,7 @@ Notice:
 - Each verse is separated into multiple lines.
 ```
 
-*A psalm of David, regarding the time David fled from his son Absalom.*
+_A psalm of David, regarding the time David fled from his son Absalom._
 
 `1` O Lord, I have so many enemies;
 
@@ -52,7 +52,6 @@ Shatter the teeth of the wicked!
 `8` Victory comes from you, O Lord.
 
 May you bless your people. Interlude
-
 
 ---
 
@@ -178,7 +177,6 @@ The soft grass is our bed;
 
 and pleasant smelling firs are the rafters.
 
-
 ---
 
 ```
@@ -233,12 +231,11 @@ Notice:
 
 `19` And if anyone removes any of the words from this book of prophecy, God will remove that person’s share in the tree of life and in the holy city that are described in this book.
 
-`20` He who is the faithful witness to all these things says, <span style="color:red">“Yes, I am coming soon!”</span>
+`20` He who is the faithful witness to all these things says, $${\color{red}“Yes, I am coming soon!”}$$
 
 Amen! Come, Lord Jesus!
 
 `21` May the grace of the Lord Jesus be with God’s holy people.
-
 
 ---
 
@@ -317,5 +314,3 @@ Ismael tuvo doce hijos: Nebaiot, Quedar, Adbeel, Mibsam, Mismá, Dumá, Masá, H
 ### Los reyes de Edom
 
 `43-54` Antes de que hubiera reyes en Israel, los descendientes de Esaú, que vivían en Edom, tuvieron varios reyes. Cada rey gobernaba hasta el día de su muerte, y entonces otro ocupaba su lugar. Esta es la lista de los reyes de Edom: Bela hijo de Beor, de la ciudad de Dinhaba. Jobab hijo de Zérah, del pueblo de Bosrá. Husam, de la región de Temán. Hadad hijo de Bedad, de la ciudad de Avit. Samlá, del pueblo de Masrecá. Saúl, del pueblo de Rehobot, junto al Éufrates. Baal-hanán hijo de Acbor. Hadad, de la ciudad de Pau. La esposa de Hadad de Pau se llamaba Mehetabel y era hija de Matred y nieta de Mezaab. Hadad de Avit derrotó a Madián cuando pelearon en el campo de Moab. Después de que murió, los edomitas tuvieron a los siguientes jefes: Timná, Alvá, Jetet, Oholibamá, Elá, Pinón, Quenaz, Temán, Mibsar, Magdiel, Iram.
-
-
