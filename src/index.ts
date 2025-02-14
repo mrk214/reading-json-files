@@ -45,9 +45,11 @@ const CHAPTERS_TO_PRINT = [
     notice: [
       '- In this chapter, all verses are in a single line,',
       '  except for verse 20, which is split into two lines.',
-      '- There are words in red.',
+      '- There are red letter words (although, due to the way',
+      `  GitHub displays markdown, I couldn't make them appear in red)`,
+      '  in verses: 7, 12, 13, 16, 20.',
       '- In verse 20, there are only two lines,',
-      '  but only part of the first line is in red.',
+      '  but only part of the first line is in red letter words.',
     ],
   },
   {
@@ -71,7 +73,9 @@ const main = async (): Promise<void> => {
 
   markdown += '# This README was generated using code\n\n'
   markdown +=
-    'Check the `src/index.ts` file, and the `start` script in the `package.json` file.\n\n'
+    'Check the `src/index.ts` file and the `start` script in the `package.json` file.\n\n'
+  markdown +=
+    'Also, check the `source JSON files` to see how the data is structured and then transformed.\n\n'
 
   for (const ctp of CHAPTERS_TO_PRINT) {
     const { bookUrl, chapterUsfm, separatedLines, notice } = ctp
@@ -124,7 +128,10 @@ const main = async (): Promise<void> => {
 
             rlwLine.forEach((rlwSection) => {
               if (rlwSection.rl) {
-                line += `<span style="color:red">${rlwSection.text}</span> `
+                line +=
+                  '<span style="color:red;">**`' +
+                  rlwSection.text +
+                  '`**</span> '
               } else {
                 line += `${rlwSection.text} `
               }

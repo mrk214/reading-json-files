@@ -1,6 +1,8 @@
 # This README was generated using code
 
-Check the `src/index.ts` file, and the `start` script in the `package.json` file.
+Check the `src/index.ts` file and the `start` script in the `package.json` file.
+
+Also, check the `source JSON files` to see how the data is structured and then transformed.
 
 ---
 
@@ -13,7 +15,7 @@ Notice:
 - Each verse is separated into multiple lines.
 ```
 
-_A psalm of David, regarding the time David fled from his son Absalom._
+*A psalm of David, regarding the time David fled from his son Absalom.*
 
 `1` O Lord, I have so many enemies;
 
@@ -52,6 +54,7 @@ Shatter the teeth of the wicked!
 `8` Victory comes from you, O Lord.
 
 May you bless your people. Interlude
+
 
 ---
 
@@ -177,6 +180,7 @@ The soft grass is our bed;
 
 and pleasant smelling firs are the rafters.
 
+
 ---
 
 ```
@@ -186,9 +190,11 @@ Separated lines: YES
 Notice:
 - In this chapter, all verses are in a single line,
   except for verse 20, which is split into two lines.
-- There are words in red.
+- There are red letter words (although, due to the way
+  GitHub displays markdown, I couldn't make them appear in red)
+  in verses: 7, 12, 13, 16, 20.
 - In verse 20, there are only two lines,
-  but only part of the first line is in red.
+  but only part of the first line is in red letter words.
 ```
 
 `1` Then the angel showed me a river with the water of life, clear as crystal, flowing from the throne of God and of the Lamb.
@@ -205,7 +211,7 @@ Notice:
 
 ### Jesus Is Coming
 
-`7` <span style="color:red">“Look, I am coming soon! Blessed are those who obey the words of prophecy written in this book. ”</span>
+`7` <span style="color:red;">**`“Look, I am coming soon! Blessed are those who obey the words of prophecy written in this book. ”`**</span>
 
 `8` I, John, am the one who heard and saw all these things. And when I heard and saw them, I fell down to worship at the feet of the angel who showed them to me.
 
@@ -215,15 +221,15 @@ Notice:
 
 `11` Let the one who is doing harm continue to do harm; let the one who is vile continue to be vile; let the one who is righteous continue to live righteously; let the one who is holy continue to be holy.”
 
-`12` <span style="color:red">“Look, I am coming soon, bringing my reward with me to repay all people according to their deeds.</span>
+`12` <span style="color:red;">**`“Look, I am coming soon, bringing my reward with me to repay all people according to their deeds.`**</span>
 
-`13` <span style="color:red">I am the Alpha and the Omega, the First and the Last, the Beginning and the End.”</span>
+`13` <span style="color:red;">**`I am the Alpha and the Omega, the First and the Last, the Beginning and the End.”`**</span>
 
 `14` Blessed are those who wash their robes. They will be permitted to enter through the gates of the city and eat the fruit from the tree of life.
 
 `15` Outside the city are the dogs—the sorcerers, the sexually immoral, the murderers, the idol worshipers, and all who love to live a lie.
 
-`16` <span style="color:red">“I, Jesus, have sent my angel to give you this message for the churches. I am both the source of David and the heir to his throne. I am the bright morning star.”</span>
+`16` <span style="color:red;">**`“I, Jesus, have sent my angel to give you this message for the churches. I am both the source of David and the heir to his throne. I am the bright morning star.”`**</span>
 
 `17` The Spirit and the bride say, “Come.” Let anyone who hears this say, “Come.” Let anyone who is thirsty come. Let anyone who desires drink freely from the water of life.
 
@@ -231,11 +237,12 @@ Notice:
 
 `19` And if anyone removes any of the words from this book of prophecy, God will remove that person’s share in the tree of life and in the holy city that are described in this book.
 
-`20` He who is the faithful witness to all these things says, <code style="color:red;">“Yes, I am coming soon!”</code>
+`20` He who is the faithful witness to all these things says, <span style="color:red;">**`“Yes, I am coming soon!”`**</span>
 
 Amen! Come, Lord Jesus!
 
 `21` May the grace of the Lord Jesus be with God’s holy people.
+
 
 ---
 
@@ -314,3 +321,5 @@ Ismael tuvo doce hijos: Nebaiot, Quedar, Adbeel, Mibsam, Mismá, Dumá, Masá, H
 ### Los reyes de Edom
 
 `43-54` Antes de que hubiera reyes en Israel, los descendientes de Esaú, que vivían en Edom, tuvieron varios reyes. Cada rey gobernaba hasta el día de su muerte, y entonces otro ocupaba su lugar. Esta es la lista de los reyes de Edom: Bela hijo de Beor, de la ciudad de Dinhaba. Jobab hijo de Zérah, del pueblo de Bosrá. Husam, de la región de Temán. Hadad hijo de Bedad, de la ciudad de Avit. Samlá, del pueblo de Masrecá. Saúl, del pueblo de Rehobot, junto al Éufrates. Baal-hanán hijo de Acbor. Hadad, de la ciudad de Pau. La esposa de Hadad de Pau se llamaba Mehetabel y era hija de Matred y nieta de Mezaab. Hadad de Avit derrotó a Madián cuando pelearon en el campo de Moab. Después de que murió, los edomitas tuvieron a los siguientes jefes: Timná, Alvá, Jetet, Oholibamá, Elá, Pinón, Quenaz, Temán, Mibsar, Magdiel, Iram.
+
+
