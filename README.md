@@ -231,7 +231,7 @@ Notice:
 
 `19` And if anyone removes any of the words from this book of prophecy, God will remove that person’s share in the tree of life and in the holy city that are described in this book.
 
-`20` He who is the faithful witness to all these things says, $${\color{red}“Yes, I am coming soon!”}$$
+`20` He who is the faithful witness to all these things says, <code style="color:red;">“Yes, I am coming soon!”</code>
 
 Amen! Come, Lord Jesus!
 
