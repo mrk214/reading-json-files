@@ -6,14 +6,20 @@ Also, check the `source JSON files` to see how the data is structured and then t
 
 ---
 
-```
-Psalms 3 - (PSA.3)
-New Living Translation - (NLT)
-Separated lines: YES
-Notice:
-- The first line at the beginning of the chapter, before verse 1.
-- Each verse is separated into multiple lines.
-```
+> [!IMPORTANT]
+>
+> **Psalms 3 - (PSA.3)**
+>
+> **New Living Translation - (NLT)**
+>
+> **Separated lines: YES**
+>
+> **Notice:**
+>
+> - **The first line at the beginning of the chapter, before verse 1.**
+>
+> - **Each verse is separated into multiple lines.**
+>
 
 *A psalm of David, regarding the time David fled from his son Absalom.*
 
@@ -58,15 +64,22 @@ May you bless your people. Interlude
 
 ---
 
-```
-Song of Songs 1 - (SNG.1)
-New Living Translation - (NLT)
-Separated lines: YES
-Notice:
-- Verse 4 has two titles within its lines.
-- The number of verse 4 is shown only at the beginning of the verse.
-- Each verse is separated into multiple lines.
-```
+> [!IMPORTANT]
+>
+> **Song of Songs 1 - (SNG.1)**
+>
+> **New Living Translation - (NLT)**
+>
+> **Separated lines: YES**
+>
+> **Notice:**
+>
+> - **Verse 4 has two titles within its lines.**
+>
+> - **The number of verse 4 is shown only at the beginning of the verse.**
+>
+> - **Each verse is separated into multiple lines.**
+>
 
 `1` This is Solomon’s song of songs, more wonderful than any other.
 
@@ -183,19 +196,30 @@ and pleasant smelling firs are the rafters.
 
 ---
 
-```
-Revelation 22 - (REV.22)
-New Living Translation - (NLT)
-Separated lines: YES
-Notice:
-- In this chapter, all verses are in a single line,
-  except for verse 20, which is split into two lines.
-- There are red letter words (although, due to the way
-  GitHub displays markdown, I couldn't make them appear in red)
-  in verses: 7, 12, 13, 16, 20.
-- In verse 20, there are only two lines,
-  but only part of the first line is in red letter words.
-```
+> [!IMPORTANT]
+>
+> **Revelation 22 - (REV.22)**
+>
+> **New Living Translation - (NLT)**
+>
+> **Separated lines: YES**
+>
+> **Notice:**
+>
+> - **In this chapter, all verses are in a single line,**
+>
+>   **except for verse 20, which is split into two lines.**
+>
+> - **There are red letter words (although, due to the way**
+>
+>   **GitHub displays markdown, I couldn't make them appear in red)**
+>
+>   **in verses: 7, 12, 13, 16, 20.**
+>
+> - **In verse 20, there are only two lines,**
+>
+>   **but only part of the first line is in red letter words.**
+>
 
 `1` Then the angel showed me a river with the water of life, clear as crystal, flowing from the throne of God and of the Lamb.
 
@@ -246,17 +270,26 @@ Amen! Come, Lord Jesus!
 
 ---
 
-```
-1 Crónicas 1 - (1CH.1)
-Traducción en Lenguaje Actual - (TLA)
-Separated lines: NO
-Notice:
-- For this chapter, each verse is displayed in a single line,
-  regardless of whether the data is separated into multiple lines.
-- There are several grouped verses.
-- The grouped verses 1-4 and 28-33 not only are grouped
-  but also have titles in between.
-```
+> [!IMPORTANT]
+>
+> **1 Crónicas 1 - (1CH.1)**
+>
+> **Traducción en Lenguaje Actual - (TLA)**
+>
+> **Separated lines: NO**
+>
+> **Notice:**
+>
+> - **For this chapter, each verse is displayed in a single line,**
+>
+>   **regardless of whether the data is separated into multiple lines.**
+>
+> - **There are several grouped verses.**
+>
+> - **The grouped verses 1-4 and 28-33 not only are grouped**
+>
+>   **but also have titles in between.**
+>
 
 ### Los descendientes de Adán
 

@@ -22,8 +22,8 @@ const CHAPTERS_TO_PRINT = [
     chapterUsfm: 'PSA.3',
     separatedLines: true,
     notice: [
-      '- The first line at the beginning of the chapter, before verse 1.',
-      '- Each verse is separated into multiple lines.',
+      '- **The first line at the beginning of the chapter, before verse 1.**',
+      '- **Each verse is separated into multiple lines.**',
     ],
   },
   {
@@ -32,9 +32,9 @@ const CHAPTERS_TO_PRINT = [
     chapterUsfm: 'SNG.1',
     separatedLines: true,
     notice: [
-      '- Verse 4 has two titles within its lines.',
-      '- The number of verse 4 is shown only at the beginning of the verse.',
-      '- Each verse is separated into multiple lines.',
+      '- **Verse 4 has two titles within its lines.**',
+      '- **The number of verse 4 is shown only at the beginning of the verse.**',
+      '- **Each verse is separated into multiple lines.**',
     ],
   },
   {
@@ -43,13 +43,13 @@ const CHAPTERS_TO_PRINT = [
     chapterUsfm: 'REV.22',
     separatedLines: true,
     notice: [
-      '- In this chapter, all verses are in a single line,',
-      '  except for verse 20, which is split into two lines.',
-      '- There are red letter words (although, due to the way',
-      `  GitHub displays markdown, I couldn't make them appear in red)`,
-      '  in verses: 7, 12, 13, 16, 20.',
-      '- In verse 20, there are only two lines,',
-      '  but only part of the first line is in red letter words.',
+      '- **In this chapter, all verses are in a single line,**',
+      '  **except for verse 20, which is split into two lines.**',
+      '- **There are red letter words (although, due to the way**',
+      `  **GitHub displays markdown, I couldn't make them appear in red)**`,
+      '  **in verses: 7, 12, 13, 16, 20.**',
+      '- **In verse 20, there are only two lines,**',
+      '  **but only part of the first line is in red letter words.**',
     ],
   },
   {
@@ -58,11 +58,11 @@ const CHAPTERS_TO_PRINT = [
     chapterUsfm: '1CH.1',
     separatedLines: false,
     notice: [
-      '- For this chapter, each verse is displayed in a single line,',
-      '  regardless of whether the data is separated into multiple lines.',
-      '- There are several grouped verses.',
-      '- The grouped verses 1-4 and 28-33 not only are grouped',
-      '  but also have titles in between.',
+      '- **For this chapter, each verse is displayed in a single line,**',
+      '  **regardless of whether the data is separated into multiple lines.**',
+      '- **There are several grouped verses.**',
+      '- **The grouped verses 1-4 and 28-33 not only are grouped**',
+      '  **but also have titles in between.**',
     ],
   },
 ]
@@ -92,15 +92,20 @@ const main = async (): Promise<void> => {
     }
 
     markdown += '---\n\n'
-    markdown += '```\n'
-    markdown += `${chapter.current.human} - (${chapter.chapter_usfm})\n`
-    markdown += `${book.local_title} - (${book.local_abbreviation})\n`
-    markdown += `Separated lines: ${separatedLines ? 'YES' : 'NO'}\n`
-    markdown += `Notice:\n`
+    markdown += '> [!IMPORTANT]\n'
+    markdown += '>\n'
+    markdown += `> **${chapter.current.human} - (${chapter.chapter_usfm})**\n`
+    markdown += '>\n'
+    markdown += `> **${book.local_title} - (${book.local_abbreviation})**\n`
+    markdown += '>\n'
+    markdown += `> **Separated lines: ${separatedLines ? 'YES' : 'NO'}**\n`
+    markdown += '>\n'
+    markdown += `> **Notice:**\n`
+    markdown += '>\n'
     notice.forEach((n) => {
-      markdown += `${n}\n`
+      markdown += `> ${n}\n>\n`
     })
-    markdown += '```\n\n'
+    markdown += '\n'
 
     chapter.items.forEach((chapterItem) => {
       if (chapterItem.type === 'verse') {
