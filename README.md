@@ -18,6 +18,8 @@ Also, check the `source JSON files` to see how the data is structured and then t
 >
 > - **The first line at the beginning of the chapter, before verse 1.**
 >
+> - **The "Interlude" labels after verses: 2, 4 & 8.**
+>
 > - **Each verse is separated into multiple lines.**
 >
 
@@ -29,7 +31,9 @@ so many are against me.
 
 `2` So many are saying,
 
-“God will never rescue him!” Interlude
+“God will never rescue him!”
+
+*Interlude*
 
 `3` But you, O Lord, are a shield around me;
 
@@ -37,7 +41,9 @@ you are my glory, the one who holds my head high.
 
 `4` I cried out to the Lord,
 
-and he answered me from his holy mountain. Interlude
+and he answered me from his holy mountain.
+
+*Interlude*
 
 `5` I lay down and slept,
 
@@ -59,7 +65,9 @@ Shatter the teeth of the wicked!
 
 `8` Victory comes from you, O Lord.
 
-May you bless your people. Interlude
+May you bless your people.
+
+*Interlude*
 
 
 ---

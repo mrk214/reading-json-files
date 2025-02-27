@@ -23,6 +23,7 @@ const CHAPTERS_TO_PRINT = [
     separatedLines: true,
     notice: [
       '- **The first line at the beginning of the chapter, before verse 1.**',
+      '- **The "Interlude" labels after verses: 2, 4 & 8.**',
       '- **Each verse is separated into multiple lines.**',
     ],
   },
