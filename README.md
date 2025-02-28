@@ -16,7 +16,7 @@ Also, check the `source JSON files` to see how the data is structured and then t
 >
 > **Notice:**
 >
-> - **The first line at the beginning of the chapter, before verse 1.**
+> - **The first line (label) at the beginning of the chapter, before verse 1.**
 >
 > - **The "Interlude" labels after verses: 2, 4 & 8.**
 >

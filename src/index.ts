@@ -18,18 +18,18 @@ const writeFile = async (filePath: string, data: string) => {
 const CHAPTERS_TO_PRINT = [
   {
     bookUrl:
-      'https://mrk214.github.io/bible-data-en-eng/data/en___eng/NLT/PSA.json',
+      'https://mrk214.github.io/bible-data-en-eng/data/en___eng___eng/NLT/PSA.json',
     chapterUsfm: 'PSA.3',
     separatedLines: true,
     notice: [
-      '- **The first line at the beginning of the chapter, before verse 1.**',
+      '- **The first line (label) at the beginning of the chapter, before verse 1.**',
       '- **The "Interlude" labels after verses: 2, 4 & 8.**',
       '- **Each verse is separated into multiple lines.**',
     ],
   },
   {
     bookUrl:
-      'https://mrk214.github.io/bible-data-en-eng/data/en___eng/NLT/SNG.json',
+      'https://mrk214.github.io/bible-data-en-eng/data/en___eng___eng/NLT/SNG.json',
     chapterUsfm: 'SNG.1',
     separatedLines: true,
     notice: [
@@ -40,7 +40,7 @@ const CHAPTERS_TO_PRINT = [
   },
   {
     bookUrl:
-      'https://mrk214.github.io/bible-data-en-eng/data/en___eng/NLT/REV.json',
+      'https://mrk214.github.io/bible-data-en-eng/data/en___eng___eng/NLT/REV.json',
     chapterUsfm: 'REV.22',
     separatedLines: true,
     notice: [
@@ -55,7 +55,7 @@ const CHAPTERS_TO_PRINT = [
   },
   {
     bookUrl:
-      'https://mrk214.github.io/bible-data-es-spa/data/es___spa/TLA/1CH.json',
+      'https://mrk214.github.io/bible-data-es-spa/data/es___spa___spa/TLA/1CH.json',
     chapterUsfm: '1CH.1',
     separatedLines: false,
     notice: [
