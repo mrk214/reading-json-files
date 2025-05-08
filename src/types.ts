@@ -21,6 +21,7 @@ export type Chapter = {
   previous: NextPrev | null
   current: Current
   next: NextPrev | null
+  chapter_html?: string
   items: ChapterItem[]
 }
 
@@ -31,13 +32,17 @@ export type ChapterItem = {
   rlw_lines: RedLetterWordsSection[][]
 }
 
+// Depending on the version, some ChapterItemTypes may appear more or less.
+// The essential ChapterItemTypes are: 'heading1' and 'verse'.
+// I have added comments that can be used as a reference for styles. 👇👇👇
+// (This is only a reference; you can apply any styles you want.)
 export type ChapterItemType =
-  | 'section1'
-  | 'section2'
-  | 'heading1'
-  | 'heading2'
-  | 'label'
-  | 'verse'
+  | 'section1' // rare        - weight: 900 - h1
+  | 'section2' // rare        - weight: 800 - h2
+  | 'heading1' // very common - weight: 700 - h3
+  | 'heading2' // common      - weight: 600 - h4
+  | 'label' //    common      - weight: 500 - italic
+  | 'verse' //    very common - weight: 400 - regular text
 
 export type Publisher = {
   name: string
