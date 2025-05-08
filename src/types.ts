@@ -1,24 +1,26 @@
+export type Version = {
+  version_id: number
+  local_abbreviation: string
+  local_title: string
+  language: Language
+  repository: string
+  publisher: Publisher
+  copyright: Copyright
+  books: Book[]
+}
+
 export type Book = {
   book_usfm: string
   name: string
-  local_title: string
-  local_abbreviation: string
-  version_id: number
-  publisher: Publisher
-  copyright: Copyright
-  language: Language
-  repository: string
   chapters: Chapter[]
 }
 
 export type Chapter = {
   chapter_usfm: string
   is_chapter: boolean
+  previous: NextPrev | null
   current: Current
   next: NextPrev | null
-  previous: NextPrev | null
-  chapter_text: string
-  chapter_html: string
   items: ChapterItem[]
 }
 
@@ -55,7 +57,7 @@ export type Language = {
 }
 
 export type Current = {
-  usfm: string[]
+  usfm: string
   human: string
 }
 

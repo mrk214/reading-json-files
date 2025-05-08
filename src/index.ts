@@ -5,7 +5,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { isNonEmptyArray } from 'ramda-adjunct'
 
-import { Book } from '@/types'
+import { Version } from '@/types'
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname)
 const README_PATH = path.join(__dirname, '..', 'README.md')
@@ -17,8 +17,7 @@ const writeFile = async (filePath: string, data: string) => {
 
 const CHAPTERS_TO_PRINT = [
   {
-    bookUrl:
-      'https://mrk214.github.io/bible-data-en-eng/data/en___eng___eng/NLT/PSA.json',
+    bookUrl: 'https://mrk214.github.io/snapshots/en___eng___eng/NLT.json',
     chapterUsfm: 'PSA.3',
     separatedLines: true,
     notice: [
@@ -28,8 +27,7 @@ const CHAPTERS_TO_PRINT = [
     ],
   },
   {
-    bookUrl:
-      'https://mrk214.github.io/bible-data-en-eng/data/en___eng___eng/NLT/SNG.json',
+    bookUrl: 'https://mrk214.github.io/snapshots/en___eng___eng/NLT.json',
     chapterUsfm: 'SNG.1',
     separatedLines: true,
     notice: [
@@ -39,8 +37,7 @@ const CHAPTERS_TO_PRINT = [
     ],
   },
   {
-    bookUrl:
-      'https://mrk214.github.io/bible-data-en-eng/data/en___eng___eng/NLT/REV.json',
+    bookUrl: 'https://mrk214.github.io/snapshots/en___eng___eng/NLT.json',
     chapterUsfm: 'REV.22',
     separatedLines: true,
     notice: [
@@ -54,8 +51,7 @@ const CHAPTERS_TO_PRINT = [
     ],
   },
   {
-    bookUrl:
-      'https://mrk214.github.io/bible-data-es-spa/data/es___spa___spa/TLA/1CH.json',
+    bookUrl: 'https://mrk214.github.io/snapshots/es___spa___spa/TLA.json',
     chapterUsfm: '1CH.1',
     separatedLines: false,
     notice: [
@@ -82,13 +78,16 @@ const main = async (): Promise<void> => {
     const { bookUrl, chapterUsfm, separatedLines, notice } = ctp
 
     const response = await fetch(bookUrl)
-    const book: Book = await response.json()
+    const version: Version = await response.json()
 
-    const chapter = book.chapters.find((c) => c.chapter_usfm === chapterUsfm)
+    const bookUsfm = chapterUsfm.split('.')[0]
+    const book = version.books.find((b) => b.book_usfm === bookUsfm)
+
+    const chapter = book!.chapters.find((c) => c.chapter_usfm === chapterUsfm)
 
     if (!chapter) {
       throw new Error(
-        `Chapter '${chapterUsfm}' not found in '${book.book_usfm}'`,
+        `Chapter '${chapterUsfm}' not found in '${book!.book_usfm}'`,
       )
     }
 
@@ -97,7 +96,7 @@ const main = async (): Promise<void> => {
     markdown += '>\n'
     markdown += `> **${chapter.current.human} - (${chapter.chapter_usfm})**\n`
     markdown += '>\n'
-    markdown += `> **${book.local_title} - (${book.local_abbreviation})**\n`
+    markdown += `> **${version.local_title} - (${version.local_abbreviation})**\n`
     markdown += '>\n'
     markdown += `> **Separated lines: ${separatedLines ? 'YES' : 'NO'}**\n`
     markdown += '>\n'
