@@ -18,9 +18,9 @@ export type Book = {
 export type Chapter = {
   chapter_usfm: string
   is_chapter: boolean
-  previous: NextPrev | null
-  current: Current
-  next: NextPrev | null
+  previous: PrevCurrNext | null
+  current: PrevCurrNext
+  next: PrevCurrNext | null
   chapter_html?: string
   items: ChapterItem[]
 }
@@ -61,14 +61,9 @@ export type Language = {
   text_direction: string
 }
 
-export type Current = {
+export type PrevCurrNext = {
   usfm: string
   human: string
-}
-
-export type NextPrev = Current & {
-  canonical: boolean
-  toc: boolean
 }
 
 export type RedLetterWordsSection = {
