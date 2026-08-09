@@ -17,7 +17,6 @@ export type Book = {
 
 export type Chapter = {
   chapter_usfm: string
-  is_chapter: boolean
   previous: PrevCurrNext | null
   current: PrevCurrNext
   next: PrevCurrNext | null
