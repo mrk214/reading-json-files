@@ -72,8 +72,7 @@ const main = async (): Promise<void> => {
   let markdown: string = ''
   let lastVerseNumber: number = -1
 
-  markdown +=
-    '🧭 [Overview](https://github.com/mrk214)\n\n👉 [Available versions](https://mrk214.github.io/snapshots/data.json)\n\n'
+  markdown += '🧭 [Overview](https://github.com/mrk214)\n\n'
   markdown += '# This README was generated using code\n\n'
   markdown +=
     'Check the `src/index.ts` file and the `start` script in the `package.json` file.\n\n'

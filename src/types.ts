@@ -20,7 +20,7 @@ export type Chapter = {
   current: CurrPrevNext
   previous: CurrPrevNext | null
   next: CurrPrevNext | null
-  chapter_html?: string
+  chapter_html?: string // Available in dev repos; omitted in the snapshot repo.
   items: ChapterItem[]
 }
 

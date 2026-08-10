@@ -1,7 +1,5 @@
 🧭 [Overview](https://github.com/mrk214)
 
-👉 [Available versions](https://mrk214.github.io/snapshots/data.json)
-
 # This README was generated using code
 
 Check the `src/index.ts` file and the `start` script in the `package.json` file.
