@@ -2,6 +2,10 @@
 
 🚀 [Live Demo](https://mrk214.github.io/reading-json-files/)
 
+# Reading Bible JSON Files
+
+A simple web application demonstrating `how to read and use the Bible JSON datasets` programmatically, using their static URLs as a data source.
+
 ## 🔑 Key files
 
 Although this is a Vite project with several configuration and boilerplate files, only the following files are relevant to understanding the application:
