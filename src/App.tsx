@@ -4,6 +4,8 @@ import type { ChapterItem, RedLetterWordsSection } from './types'
 import type { ItemToPrint } from './dev.types'
 import { CHAPTERS_TO_FIND } from './constants'
 
+type Tab = 'text' | 'json'
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function getVerseLabel(verseNumbers: number[]): string {
@@ -172,6 +174,12 @@ function NoticePanel({ notices }: { notices: string[] }) {
 function ChapterCard({ item }: { item: ItemToPrint }) {
   const { version, chapter, notice } = item
   const showVerseNumberMap = buildShowVerseNumberMap(chapter.items)
+  const [activeTab, setActiveTab] = useState<Tab>('text')
+
+  const tabs: { id: Tab; label: string }[] = [
+    { id: 'text', label: 'Biblical text' },
+    { id: 'json', label: 'JSON source' },
+  ]
 
   return (
     <article className='overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm'>
@@ -202,24 +210,58 @@ function ChapterCard({ item }: { item: ItemToPrint }) {
       </header>
 
       <div className='px-4 py-4 sm:px-5'>
-        {/* ── Dev notices ── */}
+        {/* ── Dev notices (outside tabs) ── */}
         {notice.length > 0 && (
           <div className='mb-4'>
             <NoticePanel notices={notice} />
           </div>
         )}
 
-        {/* ── Biblical text ── */}
-        <div className='rounded-lg border border-stone-100 bg-stone-50/60 px-4 py-4'>
-          {chapter.items.map((chapterItem, i) => (
-            <ChapterItemRow
-              key={i}
-              item={chapterItem}
-              isFirst={i === 0}
-              showVerseNumber={showVerseNumberMap[i]}
-            />
+        {/* ── Tab bar ── */}
+        <div className='mb-3 flex gap-1 rounded-lg border border-stone-200 bg-stone-100 p-1'>
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={[
+                'flex-1 rounded-md px-3 py-1.5 text-xs font-medium transition-all',
+                activeTab === tab.id
+                  ? 'bg-white text-stone-800 shadow-sm'
+                  : 'text-stone-500 hover:text-stone-700',
+              ].join(' ')}
+            >
+              {tab.label}
+            </button>
           ))}
         </div>
+
+        {/* ── Tab: Biblical text ── */}
+        {activeTab === 'text' && (
+          <div className='rounded-lg border border-stone-100 bg-stone-50/60 px-4 py-4'>
+            {chapter.items.map((chapterItem, i) => (
+              <ChapterItemRow
+                key={i}
+                item={chapterItem}
+                isFirst={i === 0}
+                showVerseNumber={showVerseNumberMap[i]}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* ── Tab: JSON source ── */}
+        {activeTab === 'json' && (
+          <div className='overflow-hidden rounded-lg border border-zinc-700 bg-zinc-900'>
+            <div className='flex items-center gap-2 border-b border-zinc-700 bg-zinc-800 px-4 py-2'>
+              <span className='ml-2 font-mono text-[10px] text-zinc-400'>
+                chapter.items
+              </span>
+            </div>
+            <pre className='overflow-x-auto px-4 py-4 font-mono text-[10px] leading-relaxed text-emerald-300'>
+              {JSON.stringify(chapter.items, null, 2)}
+            </pre>
+          </div>
+        )}
       </div>
     </article>
   )
@@ -303,7 +345,7 @@ function App() {
       </header>
 
       {/* ── Main content ── */}
-      <main className='mx-auto max-w-2xl px-4 py-6 sm:px-6'>
+      <main className='mx-auto max-w-7xl px-4 py-6 sm:px-6'>
         {loading ? (
           <Loader />
         ) : (
