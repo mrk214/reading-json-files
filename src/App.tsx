@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import ReactJsonView from '@microlink/react-json-view'
 
 import type { ChapterItem, RedLetterWordsSection } from './types'
 import type { ItemToPrint } from './dev.types'
@@ -224,7 +225,7 @@ function ChapterCard({ item }: { item: ItemToPrint }) {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={[
-                'flex-1 rounded-md px-3 py-1.5 text-xs font-medium transition-all',
+                'flex-1 rounded-md px-3 py-1.5 text-xs font-medium transition-all cursor-pointer',
                 activeTab === tab.id
                   ? 'bg-white text-stone-800 shadow-sm'
                   : 'text-stone-500 hover:text-stone-700',
@@ -251,16 +252,15 @@ function ChapterCard({ item }: { item: ItemToPrint }) {
 
         {/* ── Tab: JSON source ── */}
         {activeTab === 'json' && (
-          <div className='overflow-hidden rounded-lg border border-zinc-700 bg-zinc-900'>
-            <div className='flex items-center gap-2 border-b border-zinc-700 bg-zinc-800 px-4 py-2'>
-              <span className='ml-2 font-mono text-[10px] text-zinc-400'>
-                chapter.items
-              </span>
-            </div>
-            <pre className='overflow-x-auto px-4 py-4 font-mono text-[10px] leading-relaxed text-emerald-300'>
-              {JSON.stringify(chapter.items, null, 2)}
-            </pre>
-          </div>
+          <ReactJsonView
+            src={chapter.items}
+            name={null}
+            theme='google'
+            displayArrayKey={false}
+            displayDataTypes={false}
+            displayObjectSize={false}
+            enableClipboard={false}
+          />
         )}
       </div>
     </article>
