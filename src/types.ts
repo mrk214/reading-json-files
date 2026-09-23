@@ -10,8 +10,8 @@ export type Version = {
 }
 
 export type Book = {
-  book_usfm: string
-  name: string
+  usfm: string
+  human: string
   chapters: Chapter[]
 }
 
@@ -20,7 +20,7 @@ export type Chapter = {
   human: string
   previous: PrevNext | null
   next: PrevNext | null
-  chapter_html?: string // Available in dev repos; omitted in the snapshot repo.
+  html?: string // Available in dev repos; omitted in the snapshot repo.
   items: ChapterItem[]
 }
 
@@ -28,7 +28,7 @@ export type ChapterItem = {
   type: ChapterItemType
   verse_numbers: number[]
   lines: string[]
-  rlw_lines: RedLetterWordsSection[][]
+  rlw_lines: RedLetterWords[][]
 }
 
 // Depending on the version, some ChapterItemTypes may appear more or less.
@@ -65,7 +65,7 @@ export type PrevNext = {
   human: string
 }
 
-export type RedLetterWordsSection = {
+export type RedLetterWords = {
   text: string
   rl: boolean
 }

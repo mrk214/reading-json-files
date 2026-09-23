@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import ReactJsonView from '@microlink/react-json-view'
 
-import type { ChapterItem, RedLetterWordsSection } from './types'
+import type { ChapterItem, RedLetterWords, Version } from './types'
 import type { ItemToPrint } from './dev.types'
 import { CHAPTERS_TO_FIND } from './constants'
 
@@ -19,7 +19,7 @@ function getVerseLabel(verseNumbers: number[]): string {
   return `${first}-${last}`
 }
 
-function hasRedLetterWords(rlwLines: RedLetterWordsSection[][]): boolean {
+function hasRedLetterWords(rlwLines: RedLetterWords[][]): boolean {
   return rlwLines.length > 0
 }
 
@@ -61,7 +61,7 @@ function VerseNumber({ label }: { label: string }) {
   )
 }
 
-function RedLetterLine({ sections }: { sections: RedLetterWordsSection[] }) {
+function RedLetterLine({ sections }: { sections: RedLetterWords[] }) {
   return (
     <>
       {sections.map((section, i) =>
@@ -97,7 +97,7 @@ function ChapterItemRow({
       <p className={`${mt} text-xs leading-relaxed text-stone-700`}>
         {showVerseNumber && <VerseNumber label={verseLabel} />}
         {useRlw
-          ? (lines as RedLetterWordsSection[][]).map((rlwLine, i) => (
+          ? (lines as RedLetterWords[][]).map((rlwLine, i) => (
               <span key={i}>
                 {i > 0 && <br />}
                 <RedLetterLine sections={rlwLine} />
@@ -278,12 +278,10 @@ function App() {
 
       for (const chapterToFind of CHAPTERS_TO_FIND) {
         const response = await fetch(chapterToFind.bookUrl)
-        const version = await response.json()
+        const version: Version = await response.json()
 
         const bookUsfm: string = chapterToFind.chapterUsfm.split('.')[0]
-        const book = version.books.find(
-          (b: { book_usfm: string }) => b.book_usfm === bookUsfm,
-        )
+        const book = version.books.find((b) => b.usfm === bookUsfm)
 
         const foundChapter = book!.chapters.find(
           (c: { usfm: string }) => c.usfm === chapterToFind.chapterUsfm,
@@ -324,8 +322,8 @@ function App() {
             </a>
           </div>
           <p className='mt-1.5 text-xs text-stone-500'>
-            This page is generated from static JSON files and its code was
-            written by an AI.
+            This website is an example implementation, and its code was written
+            by an AI.
           </p>
 
           <p className='mt-1.5 text-xs text-stone-500'>
