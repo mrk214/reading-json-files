@@ -189,12 +189,10 @@ function ChapterCard({ item }: { item: ItemToPrint }) {
         <div className='flex flex-wrap items-start justify-between gap-2'>
           <div>
             <h2 className='text-sm font-bold text-stone-800'>
-              {chapter.current.human}
+              {chapter.human}
             </h2>
             <p className='mt-0.5 text-xs text-stone-500'>
-              <span className='font-mono text-stone-400'>
-                {chapter.chapter_usfm}
-              </span>
+              <span className='font-mono text-stone-400'>{chapter.usfm}</span>
               {' · '}
               {version.local_title}{' '}
               <span className='font-mono text-stone-400'>

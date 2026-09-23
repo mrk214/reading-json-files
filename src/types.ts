@@ -16,10 +16,10 @@ export type Book = {
 }
 
 export type Chapter = {
-  chapter_usfm: string
-  current: CurrPrevNext
-  previous: CurrPrevNext | null
-  next: CurrPrevNext | null
+  usfm: string
+  human: string
+  previous: PrevNext | null
+  next: PrevNext | null
   chapter_html?: string // Available in dev repos; omitted in the snapshot repo.
   items: ChapterItem[]
 }
@@ -60,7 +60,7 @@ export type Language = {
   text_direction: string
 }
 
-export type CurrPrevNext = {
+export type PrevNext = {
   usfm: string
   human: string
 }
