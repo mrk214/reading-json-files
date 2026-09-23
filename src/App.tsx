@@ -286,8 +286,7 @@ function App() {
         )
 
         const foundChapter = book!.chapters.find(
-          (c: { chapter_usfm: string }) =>
-            c.chapter_usfm === chapterToFind.chapterUsfm,
+          (c: { usfm: string }) => c.usfm === chapterToFind.chapterUsfm,
         )
 
         if (foundChapter) {
