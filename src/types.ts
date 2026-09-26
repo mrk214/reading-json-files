@@ -29,6 +29,7 @@ export type ChapterItem = {
   verse_numbers: number[]
   lines: string[]
   rlw_lines: RedLetterWords[][]
+  np?: boolean // Indicates that the verse starts on a new line. Omitted when it continues on the same line.
 }
 
 // Depending on the version, some ChapterItemTypes may appear more or less.
