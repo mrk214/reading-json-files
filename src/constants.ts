@@ -28,6 +28,8 @@ export const CHAPTERS_TO_FIND: ChapterToFind[] = [
     notice: [
       'There are red letter words (rlw_lines) in verses 7, 12, 13, 16, 20.',
       'In verse 20 there are two lines, but only part of the first line is in red letter words (rlw_lines).',
+      'The np field (new paragraph) is only present when true, as in verses 1, 3, and 17, and omitted otherwise (e.g., verses 2, 4, 5, 18, and 19).',
+      'Depending on the version or even the book, the np field may appear more or less frequently.',
     ],
   },
   {
