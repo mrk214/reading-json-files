@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import ReactJsonView from '@microlink/react-json-view'
 
 import type { ChapterItem, RedLetterWords, Version } from './types'
@@ -7,8 +7,33 @@ import { CHAPTERS_TO_FIND } from './constants'
 
 type Tab = 'text' | 'json'
 
+// ─── Block Types ─────────────────────────────────────────────────────────────
+
+/**
+ * A renderable block representing either:
+ * - A non-verse heading, section title, or label (always starts on its own line).
+ * - A prose paragraph composed of one or more consecutive inline verses.
+ */
+type ChapterBlock =
+  | {
+      type: 'heading'
+      item: ChapterItem
+    }
+  | {
+      type: 'paragraph'
+      verses: {
+        item: ChapterItem
+        showVerseNumber: boolean
+      }[]
+    }
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
+/**
+ * Returns a human-readable verse label.
+ * - Single verse: "1"
+ * - Grouped verses: "1-4"
+ */
 function getVerseLabel(verseNumbers: number[]): string {
   if (verseNumbers.length === 1) {
     return String(verseNumbers[0])
@@ -19,10 +44,21 @@ function getVerseLabel(verseNumbers: number[]): string {
   return `${first}-${last}`
 }
 
+/**
+ * Checks whether the verse contains Red Letter Words (words spoken by Jesus).
+ */
 function hasRedLetterWords(rlwLines: RedLetterWords[][]): boolean {
   return rlwLines.length > 0
 }
 
+/**
+ * Builds a boolean map indicating whether each item in `items` should display
+ * its verse number.
+ *
+ * In some JSON sources, a verse can be split across multiple ChapterItems
+ * (e.g. when an interlude or title interrupts the verse). In that situation,
+ * only the first segment should display the verse number.
+ */
 function buildShowVerseNumberMap(items: ChapterItem[]): boolean[] {
   let lastVerseNumber = -1
 
@@ -40,6 +76,58 @@ function buildShowVerseNumberMap(items: ChapterItem[]): boolean[] {
 
     return show
   })
+}
+
+/**
+ * Groups flat ChapterItem elements into visual blocks according to Bible typography rules:
+ *
+ * 1. Non-verse items (section1, section2, heading1, heading2, label) are standalone
+ *    blocks that each start on a new line.
+ * 2. Verse items (type === 'verse') flow inline within a paragraph (<p>), UNLESS:
+ *    - `np: true` is present on the item (New Paragraph marker in the JSON), which
+ *      signals that this verse starts on a new line.
+ *    - The verse immediately follows a non-verse item (like a heading or label).
+ */
+function groupChapterItems(items: ChapterItem[]): ChapterBlock[] {
+  const showVerseNumberMap = buildShowVerseNumberMap(items)
+  const blocks: ChapterBlock[] = []
+  let currentParagraphVerses: {
+    item: ChapterItem
+    showVerseNumber: boolean
+  }[] = []
+
+  items.forEach((item, index) => {
+    if (item.type !== 'verse') {
+      // 1. Flush any pending verses into a paragraph before the heading
+      if (currentParagraphVerses.length > 0) {
+        blocks.push({ type: 'paragraph', verses: currentParagraphVerses })
+        currentParagraphVerses = []
+      }
+
+      // 2. Headings and labels are standalone blocks
+      blocks.push({ type: 'heading', item })
+    } else {
+      // 3. Verse item:
+      // If `np` is true and we already have verses in the current paragraph,
+      // end the current paragraph and start a new one.
+      if (item.np && currentParagraphVerses.length > 0) {
+        blocks.push({ type: 'paragraph', verses: currentParagraphVerses })
+        currentParagraphVerses = []
+      }
+
+      currentParagraphVerses.push({
+        item,
+        showVerseNumber: showVerseNumberMap[index],
+      })
+    }
+  })
+
+  // Flush any remaining verses into the last paragraph
+  if (currentParagraphVerses.length > 0) {
+    blocks.push({ type: 'paragraph', verses: currentParagraphVerses })
+  }
+
+  return blocks
 }
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
@@ -61,96 +149,127 @@ function VerseNumber({ label }: { label: string }) {
   )
 }
 
+/**
+ * Renders a single line of words that may include Red Letter Words (rlw).
+ * Red-letter segments (words of Christ) are highlighted in red.
+ */
 function RedLetterLine({ sections }: { sections: RedLetterWords[] }) {
   return (
     <>
-      {sections.map((section, i) =>
-        section.rl ? (
-          <span key={i} className='text-red-600'>
-            {section.text}{' '}
+      {sections.map((section, i) => {
+        // Separate sections with a space if the previous text does not already end with one
+        const needsSpace =
+          i < sections.length - 1 && !section.text.endsWith(' ')
+
+        return (
+          <span
+            key={i}
+            className={section.rl ? 'font-medium text-red-600' : undefined}
+          >
+            {section.text}
+            {needsSpace ? ' ' : ''}
           </span>
-        ) : (
-          <span key={i}>{section.text} </span>
-        ),
-      )}
+        )
+      })}
     </>
   )
 }
 
-function ChapterItemRow({
+/**
+ * Renders a verse item inline.
+ * - Displays the verse number if `showVerseNumber` is true.
+ * - Handles both plain text `lines` and red-letter words (`rlw_lines`).
+ * - If `lines > 1` or `rlw_lines > 1`, each item in the array represents
+ *   a distinct poetic or formatted line, separated by `<br />`.
+ */
+function VerseItem({
   item,
-  isFirst,
   showVerseNumber,
 }: {
   item: ChapterItem
-  isFirst: boolean
   showVerseNumber: boolean
 }) {
-  const mt = isFirst ? '' : 'mt-2'
+  const verseLabel = getVerseLabel(item.verse_numbers)
+  const useRlw = hasRedLetterWords(item.rlw_lines)
 
-  if (item.type === 'verse') {
-    const verseLabel = getVerseLabel(item.verse_numbers)
-    const useRlw = hasRedLetterWords(item.rlw_lines)
-    const lines = useRlw ? item.rlw_lines : item.lines
+  return (
+    <span className='inline'>
+      {showVerseNumber && <VerseNumber label={verseLabel} />}
+      {useRlw
+        ? item.rlw_lines.map((rlwLine, lineIndex) => (
+            <span key={lineIndex}>
+              {lineIndex > 0 && <br />}
+              <RedLetterLine sections={rlwLine} />
+            </span>
+          ))
+        : item.lines.map((lineText, lineIndex) => (
+            <span key={lineIndex}>
+              {lineIndex > 0 && <br />}
+              {lineText}
+            </span>
+          ))}
+    </span>
+  )
+}
 
-    return (
-      <p className={`${mt} text-xs leading-relaxed text-stone-700`}>
-        {showVerseNumber && <VerseNumber label={verseLabel} />}
-        {useRlw
-          ? (lines as RedLetterWords[][]).map((rlwLine, i) => (
-              <span key={i}>
-                {i > 0 && <br />}
-                <RedLetterLine sections={rlwLine} />
-              </span>
-            ))
-          : (lines as string[]).join(' ')}
-      </p>
-    )
+/**
+ * Renders non-verse structural elements (section titles, headings, labels).
+ * Each type maps to an appropriate typographic weight and heading tag.
+ */
+function HeadingBlock({ item }: { item: ChapterItem }) {
+  const text = item.lines[0]
+
+  switch (item.type) {
+    case 'section1':
+      return (
+        <h2 className='pt-2 text-sm font-black uppercase tracking-widest text-stone-800 first:pt-0'>
+          {text}
+        </h2>
+      )
+    case 'section2':
+      return (
+        <h3 className='pt-2 text-sm font-extrabold uppercase tracking-wide text-stone-800 first:pt-0'>
+          {text}
+        </h3>
+      )
+    case 'heading1':
+      return (
+        <h4 className='pt-1 text-xs font-bold text-stone-600 first:pt-0'>
+          {text}
+        </h4>
+      )
+    case 'heading2':
+      return (
+        <h5 className='pt-1 text-xs font-semibold text-stone-500 first:pt-0'>
+          {text}
+        </h5>
+      )
+    case 'label':
+      return <p className='text-xs italic text-stone-400'>{text}</p>
+    default:
+      return null
   }
+}
 
-  if (item.type === 'section1') {
-    return (
-      <h2
-        className={`${mt} text-sm font-black uppercase tracking-widest text-stone-800`}
-      >
-        {item.lines[0]}
-      </h2>
-    )
-  }
-
-  if (item.type === 'section2') {
-    return (
-      <h3
-        className={`${mt} text-sm font-extrabold uppercase tracking-wide text-stone-800`}
-      >
-        {item.lines[0]}
-      </h3>
-    )
-  }
-
-  if (item.type === 'heading1') {
-    return (
-      <h4 className={`${mt} text-xs font-bold text-stone-600`}>
-        {item.lines[0]}
-      </h4>
-    )
-  }
-
-  if (item.type === 'heading2') {
-    return (
-      <h5 className={`${mt} text-xs font-semibold text-stone-500`}>
-        {item.lines[0]}
-      </h5>
-    )
-  }
-
-  if (item.type === 'label') {
-    return (
-      <p className={`${mt} text-xs italic text-stone-400`}>{item.lines[0]}</p>
-    )
-  }
-
-  return null
+/**
+ * Renders a paragraph containing one or more inline verses.
+ * Consecutive verses flow inline together separated by a single space.
+ */
+function ParagraphBlock({
+  verses,
+}: {
+  verses: { item: ChapterItem; showVerseNumber: boolean }[]
+}) {
+  return (
+    <p className='text-xs leading-relaxed text-stone-700'>
+      {verses.map(({ item, showVerseNumber }, i) => (
+        <span key={i}>
+          {i > 0 && ' '}
+          <VerseItem item={item} showVerseNumber={showVerseNumber} />
+        </span>
+      ))}
+    </p>
+  )
 }
 
 function NoticePanel({ notices }: { notices: string[] }) {
@@ -174,8 +293,13 @@ function NoticePanel({ notices }: { notices: string[] }) {
 
 function ChapterCard({ item }: { item: ItemToPrint }) {
   const { version, chapter, notice } = item
-  const showVerseNumberMap = buildShowVerseNumberMap(chapter.items)
   const [activeTab, setActiveTab] = useState<Tab>('text')
+
+  // Group the flat list of chapter items into logical blocks (headings and verse paragraphs)
+  const blocks = useMemo(
+    () => groupChapterItems(chapter.items),
+    [chapter.items],
+  )
 
   const tabs: { id: Tab; label: string }[] = [
     { id: 'text', label: 'Biblical text' },
@@ -236,15 +360,14 @@ function ChapterCard({ item }: { item: ItemToPrint }) {
 
         {/* ── Tab: Biblical text ── */}
         {activeTab === 'text' && (
-          <div className='rounded-lg border border-stone-100 bg-stone-50/60 px-4 py-4'>
-            {chapter.items.map((chapterItem, i) => (
-              <ChapterItemRow
-                key={i}
-                item={chapterItem}
-                isFirst={i === 0}
-                showVerseNumber={showVerseNumberMap[i]}
-              />
-            ))}
+          <div className='space-y-3 rounded-lg border border-stone-100 bg-stone-50/60 px-4 py-4'>
+            {blocks.map((block, i) =>
+              block.type === 'heading' ? (
+                <HeadingBlock key={i} item={block.item} />
+              ) : (
+                <ParagraphBlock key={i} verses={block.verses} />
+              ),
+            )}
           </div>
         )}
 
@@ -269,35 +392,41 @@ function ChapterCard({ item }: { item: ItemToPrint }) {
 
 function App() {
   const [loading, setLoading] = useState(true)
-
   const [itemsToPrint, setItemsToPrint] = useState<ItemToPrint[]>([])
 
   useEffect(() => {
     const getData = async () => {
-      const newItemsToPrint: ItemToPrint[] = []
+      try {
+        // Fetch all sample chapters in parallel for faster initial loading
+        const fetchedItems = await Promise.all(
+          CHAPTERS_TO_FIND.map(async (chapterToFind) => {
+            const response = await fetch(chapterToFind.bookUrl)
+            const version: Version = await response.json()
 
-      for (const chapterToFind of CHAPTERS_TO_FIND) {
-        const response = await fetch(chapterToFind.bookUrl)
-        const version: Version = await response.json()
+            const bookUsfm = chapterToFind.chapterUsfm.split('.')[0]
+            const book = version.books.find((b) => b.usfm === bookUsfm)
+            const foundChapter = book?.chapters.find(
+              (c) => c.usfm === chapterToFind.chapterUsfm,
+            )
 
-        const bookUsfm: string = chapterToFind.chapterUsfm.split('.')[0]
-        const book = version.books.find((b) => b.usfm === bookUsfm)
+            if (!foundChapter) {
+              return null
+            }
 
-        const foundChapter = book!.chapters.find(
-          (c: { usfm: string }) => c.usfm === chapterToFind.chapterUsfm,
+            return {
+              version,
+              chapter: foundChapter,
+              notice: chapterToFind.notice,
+            }
+          }),
         )
 
-        if (foundChapter) {
-          newItemsToPrint.push({
-            version,
-            chapter: foundChapter,
-            notice: chapterToFind.notice,
-          })
-        }
+        setItemsToPrint(
+          fetchedItems.filter((item): item is ItemToPrint => item !== null),
+        )
+      } finally {
+        setLoading(false)
       }
-
-      setItemsToPrint(newItemsToPrint)
-      setLoading(false)
     }
 
     getData()
