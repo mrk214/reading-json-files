@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Link } from 'react-router'
 import ReactJsonView from '@microlink/react-json-view'
 
 import type { ChapterItem, RedLetterWords, Version } from './types'
@@ -132,7 +133,7 @@ function groupChapterItems(items: ChapterItem[]): ChapterBlock[] {
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-function Loader() {
+export function Loader() {
   return (
     <div className='flex flex-col items-center justify-center gap-3 py-24 text-stone-400'>
       <div className='h-8 w-8 animate-spin rounded-full border-2 border-stone-300 border-t-stone-500' />
@@ -291,7 +292,7 @@ function NoticePanel({ notices }: { notices: string[] }) {
   )
 }
 
-function ChapterCard({ item }: { item: ItemToPrint }) {
+export function ChapterCard({ item }: { item: ItemToPrint }) {
   const { version, chapter, notice } = item
   const [activeTab, setActiveTab] = useState<Tab>('text')
 
@@ -400,7 +401,7 @@ function App() {
         // Fetch all sample chapters in parallel for faster initial loading
         const fetchedItems = await Promise.all(
           CHAPTERS_TO_FIND.map(async (chapterToFind) => {
-            const response = await fetch(chapterToFind.bookUrl)
+            const response = await fetch(chapterToFind.versionUrl)
             const version: Version = await response.json()
 
             const bookUsfm = chapterToFind.chapterUsfm.split('.')[0]
@@ -441,14 +442,24 @@ function App() {
             <h1 className='text-lg font-bold text-stone-800'>
               Reading JSON files
             </h1>
-            <a
-              href='https://github.com/mrk214/reading-json-files'
-              target='_blank'
-              rel='noreferrer'
-              className='shrink-0 rounded-md border border-stone-200 bg-stone-50 px-2.5 py-1 text-[11px] font-medium text-stone-500 transition-colors hover:border-stone-300 hover:text-stone-700'
-            >
-              GitHub ↗
-            </a>
+
+            <div className='flex items-center gap-2'>
+              <Link
+                to='/inspect'
+                className='shrink-0 rounded-md border border-stone-200 bg-stone-50 px-2.5 py-1 text-[11px] font-medium text-stone-500 transition-colors hover:border-stone-300 hover:text-stone-700'
+              >
+                Inspect
+              </Link>
+
+              <a
+                href='https://github.com/mrk214/reading-json-files'
+                target='_blank'
+                rel='noreferrer'
+                className='shrink-0 rounded-md border border-stone-200 bg-stone-50 px-2.5 py-1 text-[11px] font-medium text-stone-500 transition-colors hover:border-stone-300 hover:text-stone-700'
+              >
+                GitHub ↗
+              </a>
+            </div>
           </div>
           <p className='mt-1.5 text-xs text-stone-500'>
             This website is an example implementation, and its code was written

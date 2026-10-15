@@ -1,7 +1,7 @@
 import type { Version, Chapter } from './types'
 
 export type ChapterToFind = {
-  bookUrl: string
+  versionUrl: string
   chapterUsfm: string
   notice: string[]
 }

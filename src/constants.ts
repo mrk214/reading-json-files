@@ -1,9 +1,10 @@
 import type { ChapterToFind } from './dev.types'
 
+export const BASE_URL: string = 'https://mrk214.github.io/snapshots/'
+
 export const CHAPTERS_TO_FIND: ChapterToFind[] = [
   {
-    bookUrl:
-      'https://mrk214.github.io/snapshots/en___eng___eng/NLT_vid_116.json',
+    versionUrl: BASE_URL + 'en___eng___eng/NLT_vid_116.json',
     chapterUsfm: 'PSA.3',
     notice: [
       'The first line is a label, at the beginning of the chapter, before verse 1.',
@@ -12,8 +13,7 @@ export const CHAPTERS_TO_FIND: ChapterToFind[] = [
     ],
   },
   {
-    bookUrl:
-      'https://mrk214.github.io/snapshots/en___eng___eng/NLT_vid_116.json',
+    versionUrl: BASE_URL + 'en___eng___eng/NLT_vid_116.json',
     chapterUsfm: 'SNG.1',
     notice: [
       'In this chapter, verse 1 is on a single line, while some of the other verses are split into multiple lines.',
@@ -22,8 +22,7 @@ export const CHAPTERS_TO_FIND: ChapterToFind[] = [
     ],
   },
   {
-    bookUrl:
-      'https://mrk214.github.io/snapshots/en___eng___eng/NLT_vid_116.json',
+    versionUrl: BASE_URL + 'en___eng___eng/NLT_vid_116.json',
     chapterUsfm: 'REV.22',
     notice: [
       'There are red letter words (rlw_lines) in verses 7, 12, 13, 16, 20.',
@@ -33,8 +32,7 @@ export const CHAPTERS_TO_FIND: ChapterToFind[] = [
     ],
   },
   {
-    bookUrl:
-      'https://mrk214.github.io/snapshots/es___spa___spa/TLA_vid_176.json',
+    versionUrl: BASE_URL + 'es___spa___spa/TLA_vid_176.json',
     chapterUsfm: '1CH.1',
     notice: [
       'There are several grouped verses in this chapter.',
