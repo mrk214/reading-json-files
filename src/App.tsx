@@ -85,7 +85,7 @@ function buildShowVerseNumberMap(items: ChapterItem[]): boolean[] {
  * 1. Non-verse items (section1, section2, heading1, heading2, label) are standalone
  *    blocks that each start on a new line.
  * 2. Verse items (type === 'verse') flow inline within a paragraph (<p>), UNLESS:
- *    - `np: true` is present on the item (New Paragraph marker in the JSON), which
+ *    - `np` is true on the item (New Paragraph marker in the JSON), which
  *      signals that this verse starts on a new line.
  *    - The verse immediately follows a non-verse item (like a heading or label).
  */
